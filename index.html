@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flovvnetic Countdown</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --primary: #8a2be2;
@@ -153,6 +154,69 @@
             letter-spacing: 1px;
         }
         
+        .reveal-content {
+            display: none;
+            margin-top: 3rem;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+        
+        .reveal-title {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--accent);
+        }
+        
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(to right, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.4);
+        }
+        
+        .btn-secondary {
+            background: var(--gray);
+            color: var(--light);
+            border: 1px solid var(--primary);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(138, 43, 226, 0.6);
+        }
+        
+        .message {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: var(--gray);
+            border-radius: 12px;
+            border-left: 4px solid var(--accent);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
         @media (max-width: 768px) {
             .countdown-container {
                 flex-wrap: wrap;
@@ -170,6 +234,16 @@
             
             .logo-text {
                 font-size: 2.2rem;
+            }
+            
+            .button-group {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
             }
         }
         
@@ -195,7 +269,7 @@
 <body>
     <div class="container">
         <div class="logo">
-            <h1 class="logo-text">SHSSS</h1>
+            <h1 class="logo-text">SHSSS POWERED BY FLOVVNETIC.IO</h1>
         </div>
         
         <h2 class="countdown-title">COUNTDOWN TO 11:00 AM</h2>
@@ -224,6 +298,27 @@
         <div class="target-time">Target Time: 11:00:00 AM</div>
         
         <div class="flovvnetic-tag">FLOVVNETIC • PRECISION TIMING SOLUTIONS</div>
+        
+        <div id="revealContent" class="reveal-content">
+            <h2 class="reveal-title">Welcome to the New Flovvnetic</h2>
+            
+            <div class="button-group">
+                <a href="https://shsss-org.github.io/home/#" class="btn btn-primary">
+                    <i class="fas fa-external-link-alt"></i>
+                    Visit Our New Website
+                </a>
+                
+                <a href="https://drive.google.com/file/d/1-VbdvLTdxIdo2fcOsIp_4P87jZtd0Ml4/view?usp=drivesdk" class="btn btn-secondary">
+                    <i class="fab fa-google-drive"></i>
+                    Download Our App
+                </a>
+            </div>
+            
+            <div class="message">
+                <p>Thank you for your patience. Our new website and mobile application are now available!</p>
+                <p>Explore our new features and enhanced experience.</p>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -234,9 +329,22 @@
             // Set target to 11:00 AM today
             target.setHours(11, 0, 0, 0);
             
-            // If it's already past 11 AM, set target to 11 AM tomorrow
+            // Check if it's already past 11 AM
             if (now > target) {
-                target.setDate(target.getDate() + 1);
+                // Show the reveal content
+                document.getElementById('revealContent').style.display = 'block';
+                document.querySelector('.countdown-title').textContent = "WELCOME TO FLOVVNETIC";
+                document.querySelector('.target-time').textContent = "Launched at: 11:00:00 AM";
+                
+                // Set all countdown values to zero
+                document.getElementById('hours').textContent = '00';
+                document.getElementById('minutes').textContent = '00';
+                document.getElementById('seconds').textContent = '00';
+                
+                // Set progress to 100%
+                document.getElementById('progress').style.width = '100%';
+                
+                return;
             }
             
             const timeDifference = target - now;
